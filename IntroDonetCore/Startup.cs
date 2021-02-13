@@ -58,6 +58,10 @@ namespace IntroDonetCore
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
+
+
+            DbInitializer.Seed(app);
+
         }
     }
 }

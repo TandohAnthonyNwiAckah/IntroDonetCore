@@ -3,14 +3,16 @@ using IntroDonetCore.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IntroDonetCore.Migrations
 {
     [DbContext(typeof(IntroContext))]
-    partial class IntroContextModelSnapshot : ModelSnapshot
+    [Migration("20210212103827_CourseTableToDatabase")]
+    partial class CourseTableToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,42 +34,9 @@ namespace IntroDonetCore.Migrations
                     b.Property<int>("Credits")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
                     b.HasKey("CourseId");
 
-                    b.HasIndex("DepartmentId");
-
                     b.ToTable("Course");
-                });
-
-            modelBuilder.Entity("IntroDonetCore.Models.Department", b =>
-                {
-                    b.Property<int>("DepartmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Budget")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("DepartmentName")
-                        .IsRequired()
-                        .HasColumnType("Nvarchar(50)");
-
-                    b.HasKey("DepartmentId");
-
-                    b.ToTable("Department");
-                });
-
-            modelBuilder.Entity("IntroDonetCore.Models.Course", b =>
-                {
-                    b.HasOne("IntroDonetCore.Models.Department", "Department")
-                        .WithMany("Courses")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
