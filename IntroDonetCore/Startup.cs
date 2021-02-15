@@ -21,7 +21,6 @@ namespace IntroDonetCore
             Configuration = config;
         }
 
-
         public IConfiguration Configuration { get; set; }
 
 
@@ -30,13 +29,15 @@ namespace IntroDonetCore
         public void ConfigureServices(IServiceCollection services)
         {
 
-
             services.AddDbContext<IntroContext>(options =>
             {
 
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
 
             });
+
+
+            services.AddMvc();
 
 
         }
@@ -49,14 +50,22 @@ namespace IntroDonetCore
                 app.UseDeveloperExceptionPage();
             }
 
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+            //   endpoints.MapGet("/", async context =>
+            //   {
+            //       await context.Response.WriteAsync("Hello World!");
+            //   }
+
+            endpoints.MapControllerRoute("default",
+               pattern: "{controller=Home}/{action=Index}/{int?}"
+
+                );
             });
 
 
@@ -64,4 +73,8 @@ namespace IntroDonetCore
 
         }
     }
+
+
+
+
 }

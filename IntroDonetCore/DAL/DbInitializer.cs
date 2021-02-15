@@ -36,10 +36,7 @@ namespace IntroDonetCore.DAL
             }
         }
 
-
-
         private static Dictionary<string, Department> _departments;
-
 
         public static Dictionary<string, Department> Departments
         {
@@ -68,8 +65,6 @@ namespace IntroDonetCore.DAL
                 return _departments;
             }
         }
-
-
 
 
     }
