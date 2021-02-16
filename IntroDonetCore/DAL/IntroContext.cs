@@ -10,15 +10,12 @@ namespace IntroDonetCore.DAL
 
          public  DbSet<Department> Department { get; set; }
 
-
-
         public IntroContext(DbContextOptions options)
-            :base(options)
+        :base(options)
         {
 
 
         }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

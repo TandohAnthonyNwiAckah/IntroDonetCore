@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace IntroDonetCore.Models
 {
     public class Course
     {
-
-        
+  
       //  [Key()]
-    //    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+      //  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int CourseId { get; set; }
-
 
         [Display(Name = "Course Title")]
         [Required(ErrorMessage = "Please fill the course Title")]
@@ -23,10 +16,10 @@ namespace IntroDonetCore.Models
 
         public int Credits { get; set; }
 
-
-
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
     }
+
+
 }

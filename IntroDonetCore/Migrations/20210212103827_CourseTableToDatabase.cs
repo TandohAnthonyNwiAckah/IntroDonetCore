@@ -27,4 +27,5 @@ namespace IntroDonetCore.Migrations
                 name: "Course");
         }
     }
+
 }
