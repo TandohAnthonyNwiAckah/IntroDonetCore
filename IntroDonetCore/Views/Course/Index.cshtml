@@ -24,7 +24,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Department)
             </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
 
@@ -43,11 +43,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Department.DepartmentName)
             </td>
+
+
+@*
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CourseId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CourseId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CourseId">Delete</a>
-            </td>
+               <a asp-action="Edit" asp-route-id="@item.CourseId">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.CourseId">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.CourseId">Delete</a>
+            </td>*@
+
+
+            <partial name="Partials/_GroupButtonPartial" model="@item.CourseId" />
+
+
         </tr>
 }
 
