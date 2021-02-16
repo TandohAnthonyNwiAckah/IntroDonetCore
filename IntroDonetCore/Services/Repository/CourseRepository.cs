@@ -13,7 +13,7 @@ namespace IntroDonetCore.Services.Repository
 
         private readonly IntroContext _context;
 
-        public CourseRepository(IntroContext _context, IntroContext context) : base(_context)
+        public CourseRepository(IntroContext context) : base(context)
         {
             this._context = context;
         }
