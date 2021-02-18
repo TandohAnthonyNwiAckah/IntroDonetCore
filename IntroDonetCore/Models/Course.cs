@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace IntroDonetCore.Models
 {
@@ -18,6 +19,8 @@ namespace IntroDonetCore.Models
 
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
+
+        public ICollection<Enrollment> Enrollments { get; set; }
 
     }
 

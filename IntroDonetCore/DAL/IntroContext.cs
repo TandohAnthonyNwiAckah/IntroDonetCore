@@ -10,6 +10,12 @@ namespace IntroDonetCore.DAL
 
          public  DbSet<Department> Department { get; set; }
 
+         public DbSet<Student> Students { get; set; }
+
+         public  DbSet<Enrollment> Enrollments { get; set; }
+
+
+
         public IntroContext(DbContextOptions options)
         :base(options)
         {
@@ -23,6 +29,8 @@ namespace IntroDonetCore.DAL
 
             modelBuilder.ApplyConfiguration(new CourseConfig());
             modelBuilder.ApplyConfiguration(new DepartmentConfig());
+            modelBuilder.ApplyConfiguration(new StudentConfig());
+            modelBuilder.ApplyConfiguration(new EnrollmentConfig());
 
         }
 
