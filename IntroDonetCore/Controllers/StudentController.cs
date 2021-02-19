@@ -11,13 +11,16 @@ namespace IntroDonetCore.Controllers
     {
 
         private readonly IStudentRepository _studentRepository;
+        private readonly IEnrollmentRepository _enrollmentRepository;
+        private readonly ICourseRepository _courseRepository;
 
-        public StudentController(IStudentRepository studentRepository)
+        public StudentController(IStudentRepository studentRepository, IEnrollmentRepository enrollmentRepository, ICourseRepository courseRepository = null)
         {
             _studentRepository = studentRepository;
+            _enrollmentRepository = enrollmentRepository;
+            _courseRepository = courseRepository;
         }
 
-   
         public IActionResult Index(string sortOrder, string searchString, int pageindex = 1)
         {
             //if (string.IsNullOrEmpty(sortOrder))
@@ -70,13 +73,12 @@ namespace IntroDonetCore.Controllers
 
             }
 
-            var model = PagingList.Create(students, 2, pageindex);
+            var model = PagingList.Create(students, 3, pageindex);
 
             return View(model);
 
        
         }
-
 
 
         [HttpGet]
@@ -155,7 +157,7 @@ namespace IntroDonetCore.Controllers
                 return NotFound();
             }
 
-/*            ViewBag.Courses = _courseRepository.GetAll();*/
+            ViewBag.Courses = _courseRepository.GetAll();
 
             var student = _studentRepository.GetById(id);
 
@@ -168,6 +170,24 @@ namespace IntroDonetCore.Controllers
             return View(model);
 
         }
+
+
+        public IActionResult AddCourseToStudent(StudentViewModel model)
+        {
+           if (ModelState.IsValid)
+            {
+                if (model.Enrollment.StudentId == 0 || model.Enrollment.CourseId == 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                _enrollmentRepository.Add(model.Enrollment);
+
+            }
+
+            return RedirectToAction("Details", new { id = model.Enrollment.StudentId });
+
+        }
+
 
 
     }
