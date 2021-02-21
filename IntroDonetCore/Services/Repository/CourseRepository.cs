@@ -20,7 +20,7 @@ namespace IntroDonetCore.Services.Repository
 
         public IEnumerable<Course> CoursesToDepartment()
         {
-            return _context.Course.Include(x => x.Department).ToList();
+            return _context.Courses.Include(x => x.Department).ToList();
         }
 
     }

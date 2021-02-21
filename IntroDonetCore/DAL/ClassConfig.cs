@@ -24,7 +24,6 @@ namespace IntroDonetCore.DAL
         }
     }
 
-
     public class DepartmentConfig : IEntityTypeConfiguration<Department>
     {
         public void Configure(EntityTypeBuilder<Department> builder)
@@ -40,9 +39,14 @@ namespace IntroDonetCore.DAL
             //    .HasForeignKey(f => f.DepartmentId);
 
 
+
+            builder.HasOne(i => i.Instructor)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+
         }
     }
-
 
     public class StudentConfig : IEntityTypeConfiguration<Student>
     {
@@ -54,7 +58,6 @@ namespace IntroDonetCore.DAL
             builder.Property(p => p.EnrollmentDate).HasColumnType("Date").HasDefaultValueSql("GetDate()");
         }
     }
-
 
     public class EnrollmentConfig : IEntityTypeConfiguration<Enrollment>
     {
@@ -75,6 +78,48 @@ namespace IntroDonetCore.DAL
         }
     }
 
+    public class InstructorConfig : IEntityTypeConfiguration<Instructor>
+    {
+        public void Configure(EntityTypeBuilder<Instructor> builder)
+        {
+            builder.HasKey(k => k.InstructorId);
+            builder.Property(p => p.LastName).HasMaxLength(25);
+            builder.Property(p => p.LastName).HasMaxLength(25);
+            builder.Property(p => p.HireDate).HasColumnType("Date").HasDefaultValueSql("GetDate()");
+            builder.Ignore(p => p.FullName);
+
+            builder.HasOne(o => o.OfficeAssignment)
+                .WithOne(i => i.Instructor)
+                .HasForeignKey<OfficeAssignment>(i => i.InstructorId);
+        }
+
+
+    }
+
+    public class CourseAssignmentConfig : IEntityTypeConfiguration<CourseAssignment>
+    {
+        public void Configure(EntityTypeBuilder<CourseAssignment> builder)
+        {
+            builder.HasKey(k => new { k.CourseId, InstructorId = k.InstructorId });
+
+            builder.HasOne(i => i.Instructor)
+                .WithMany(ca => ca.CourseAssignments)
+                .HasForeignKey(i => i.InstructorId);
+
+            builder.HasOne(c => c.Course)
+                .WithMany(ca => ca.CourseAssignments)
+                .HasForeignKey(c => c.CourseId);
+        }
+    }
+
+
+    public class OfficeAssignmentConfig : IEntityTypeConfiguration<OfficeAssignment>
+    {
+        public void Configure(EntityTypeBuilder<OfficeAssignment> builder)
+        {
+            builder.HasKey(k => k.InstructorId);
+        }
+    }
 
 
 }

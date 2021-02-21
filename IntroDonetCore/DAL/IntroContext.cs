@@ -6,13 +6,20 @@ namespace IntroDonetCore.DAL
     public class IntroContext: DbContext
     {
 
-        public DbSet<Course> Course { get; set; }
+        public DbSet<Course> Courses { get; set; }
 
-         public  DbSet<Department> Department { get; set; }
+         public  DbSet<Department> Departments { get; set; }
 
          public DbSet<Student> Students { get; set; }
 
          public  DbSet<Enrollment> Enrollments { get; set; }
+
+        public DbSet<Instructor> Instructors { get; set; }
+
+        public DbSet<CourseAssignment> CourseAssignments { get; set; }
+
+        public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
+
 
 
 
@@ -31,7 +38,9 @@ namespace IntroDonetCore.DAL
             modelBuilder.ApplyConfiguration(new DepartmentConfig());
             modelBuilder.ApplyConfiguration(new StudentConfig());
             modelBuilder.ApplyConfiguration(new EnrollmentConfig());
-
+            modelBuilder.ApplyConfiguration(new InstructorConfig());
+            modelBuilder.ApplyConfiguration(new CourseAssignmentConfig());
+            modelBuilder.ApplyConfiguration(new OfficeAssignmentConfig());
         }
 
 

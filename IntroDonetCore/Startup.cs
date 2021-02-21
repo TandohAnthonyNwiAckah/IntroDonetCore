@@ -37,7 +37,8 @@ namespace IntroDonetCore
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<IEnrollmentRepository, EnrollmentRepository>();
-
+            services.AddTransient<IInstructorRepository, InstructorRepository>();
+            services.AddTransient<ICourseAssignmentRepository, CourseAssignmentRepository>();
 
             services.AddMvc();
 

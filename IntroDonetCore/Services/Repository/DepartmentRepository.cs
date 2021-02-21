@@ -18,9 +18,9 @@ namespace IntroDonetCore.Services.Repository
 
         }
 
-    /*    public IEnumerable<Department> InstructorToDepartments()
+        public IEnumerable<Department> InstructorToDepartments()
         {
-            return _context.Department.Include(x => x.Instructor).ToList();
+            return _context.Departments.Include(x => x.Instructor).ToList();
 
         }
 
@@ -30,8 +30,8 @@ namespace IntroDonetCore.Services.Repository
             //    join instructor in LeLeContext.Instructors on department.Id equals instructor.Id
             //    select department).FirstOrDefault(x=>x.DepartmentId ==id);
 
-            return _context.Department.Include(x => x.Instructor).FirstOrDefault(x => x.Id == id);
+            return _context.Departments.Include(x => x.Instructor).FirstOrDefault(x => x.DepartmentId == id);
         }
-*/
+
     }
 }

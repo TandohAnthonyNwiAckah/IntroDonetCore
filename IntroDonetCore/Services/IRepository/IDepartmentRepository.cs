@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
     public interface IDepartmentRepository:IRepository<Department>
     {
-/*        IEnumerable<Department> InstructorToDepartments();
+      IEnumerable<Department> InstructorToDepartments();
 
-        Department InstructorToDepartment(int id);*/
+        Department InstructorToDepartment(int id);
     }

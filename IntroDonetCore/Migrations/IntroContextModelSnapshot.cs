@@ -40,7 +40,22 @@ namespace IntroDonetCore.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("IntroDonetCore.Models.CourseAssignment", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InstructorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseId", "InstructorId");
+
+                    b.HasIndex("InstructorId");
+
+                    b.ToTable("CourseAssignments");
                 });
 
             modelBuilder.Entity("IntroDonetCore.Models.Department", b =>
@@ -57,9 +72,14 @@ namespace IntroDonetCore.Migrations
                         .IsRequired()
                         .HasColumnType("Nvarchar(50)");
 
+                    b.Property<int?>("InstructorId")
+                        .HasColumnType("int");
+
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("Department");
+                    b.HasIndex("InstructorId");
+
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("IntroDonetCore.Models.Enrollment", b =>
@@ -85,6 +105,43 @@ namespace IntroDonetCore.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("Enrollments");
+                });
+
+            modelBuilder.Entity("IntroDonetCore.Models.Instructor", b =>
+                {
+                    b.Property<int>("InstructorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("HireDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("Date")
+                        .HasDefaultValueSql("GetDate()");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(25)")
+                        .HasMaxLength(25);
+
+                    b.HasKey("InstructorId");
+
+                    b.ToTable("Instructors");
+                });
+
+            modelBuilder.Entity("IntroDonetCore.Models.OfficeAssignment", b =>
+                {
+                    b.Property<int>("InstructorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("InstructorId");
+
+                    b.ToTable("OfficeAssignments");
                 });
 
             modelBuilder.Entity("IntroDonetCore.Models.Student", b =>
@@ -122,6 +179,29 @@ namespace IntroDonetCore.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("IntroDonetCore.Models.CourseAssignment", b =>
+                {
+                    b.HasOne("IntroDonetCore.Models.Course", "Course")
+                        .WithMany("CourseAssignments")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IntroDonetCore.Models.Instructor", "Instructor")
+                        .WithMany("CourseAssignments")
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IntroDonetCore.Models.Department", b =>
+                {
+                    b.HasOne("IntroDonetCore.Models.Instructor", "Instructor")
+                        .WithMany()
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("IntroDonetCore.Models.Enrollment", b =>
                 {
                     b.HasOne("IntroDonetCore.Models.Course", "Course")
@@ -133,6 +213,15 @@ namespace IntroDonetCore.Migrations
                     b.HasOne("IntroDonetCore.Models.Student", "Student")
                         .WithMany("Enrollments")
                         .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IntroDonetCore.Models.OfficeAssignment", b =>
+                {
+                    b.HasOne("IntroDonetCore.Models.Instructor", "Instructor")
+                        .WithOne("OfficeAssignment")
+                        .HasForeignKey("IntroDonetCore.Models.OfficeAssignment", "InstructorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

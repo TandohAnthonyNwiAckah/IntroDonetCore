@@ -15,12 +15,12 @@ namespace IntroDonetCore.DAL
             {
                 var context = serviceScope.ServiceProvider.GetService<IntroContext>();
 
-                if (!context.Department.Any())
+                if (!context.Departments.Any())
                 {
-                    context.Department.AddRange(Departments.Values);
+                    context.Departments.AddRange(Departments.Values);
                 }
 
-                if (!context.Course.Any())
+                if (!context.Courses.Any())
                 {
                     var courseList = new List<Course>
                     {
@@ -29,7 +29,7 @@ namespace IntroDonetCore.DAL
                         new Course() {CourseName = "HTML", Department = Departments["Design"], Credits = 8}
                     };
 
-                    context.Course.AddRange(courseList);
+                    context.Courses.AddRange(courseList);
                 }
 
                 context.SaveChanges();
