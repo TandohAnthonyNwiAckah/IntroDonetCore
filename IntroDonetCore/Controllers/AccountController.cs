@@ -43,7 +43,6 @@ namespace IntroDonetCore.Controllers
                 Email = model.Email
             };
 
-
             var success = await _userManager.CreateAsync(user, model.Password);
 
             if (success.Succeeded)
@@ -53,12 +52,10 @@ namespace IntroDonetCore.Controllers
                 return RedirectToAction("Index");
             }
 
-
             foreach (var error in success.Errors)
             {
                 ModelState.AddModelError("", error.Description);
             }
-
 
             return View("Register");
 
@@ -95,7 +92,6 @@ namespace IntroDonetCore.Controllers
         }
 
 
-
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -109,9 +105,6 @@ namespace IntroDonetCore.Controllers
         {
             return View();
         }
-
-
-
 
     }
 
