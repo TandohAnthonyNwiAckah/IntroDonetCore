@@ -23,6 +23,7 @@ namespace IntroDonetCore.DAL
         {
             
             var adminRole = new IdentityRole("Admin");
+
             var userRole = new IdentityRole("User");
 
             if (!_roleManager.Roles.Any())
@@ -39,11 +40,19 @@ namespace IntroDonetCore.DAL
             if (_userManager.Users.Any()) return;
 
 
-            var adminUser = new IdentityUser("Tanacom");
+            var adminUser = new IdentityUser()
+            {
+                UserName = "Tanacom",
+                Email = "info@tanacom.io"
+            };
 
 
-            var normalUser = new IdentityUser("Tandoh");
-           
+            var normalUser = new IdentityUser()
+            {
+                UserName = "Tandoh",
+               Email = "anthony.tandoh@tanacom.io"
+            };
+
 
 
             _userManager.CreateAsync(adminUser, "@Password").GetAwaiter().GetResult();

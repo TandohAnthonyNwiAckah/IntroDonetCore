@@ -19,8 +19,15 @@
 <br />
 
 
-<form method="get" asp-action="Index">
-    search by name:<input type="search" name="searchString" value="@ViewData["currentFilter"]" placeholder="search" />
+
+
+@*<form class="form-inline my-2 my-lg-0">
+    <input type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>*@
+
+<form  class="form-inline my-2 my-lg-0"    method="get" asp-action="Index">
+    <input type="search" name="searchString" value="@ViewData["currentFilter"]" placeholder="search" />
     <input type="submit" value="Search" class="btn btn-sm btn-success" />
 </form>
 
@@ -28,8 +35,8 @@
 <br />
 
 @*<nav aria-label="Products navigation example">
-    <vc:pager paging-list="@Model"></vc:pager>
-</nav>*@
+        <vc:pager paging-list="@Model"></vc:pager>
+    </nav>*@
 
 
 <br />
