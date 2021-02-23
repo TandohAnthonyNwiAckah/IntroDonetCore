@@ -53,6 +53,13 @@ namespace IntroDonetCore
               .AddEntityFrameworkStores<IntroContext>()
               .AddDefaultTokenProviders();
 
+
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("OnlyAdmin", policy => policy.RequireRole("Admin"));
+            });
+
             services.AddMvc();
 
             services.AddPaging(options =>
@@ -81,6 +88,9 @@ namespace IntroDonetCore
             app.UseRouting();
 
             accountInitialize.SeedData();
+
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

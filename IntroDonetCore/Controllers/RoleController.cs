@@ -1,4 +1,5 @@
 ﻿using IntroDonetCore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace IntroDonetCore.Controllers
 {
 
-
+    [Authorize(Policy = "OnlyAdmin")]
     public class RoleController : Controller
     {
 
@@ -21,6 +22,8 @@ namespace IntroDonetCore.Controllers
             _roleManager = roleManager;
         }
 
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var roles = await _roleManager.Roles.Select(s => new RoleViewModel
