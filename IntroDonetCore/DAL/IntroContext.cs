@@ -1,9 +1,13 @@
 ﻿using IntroDonetCore.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntroDonetCore.DAL
 {
-    public class IntroContext: DbContext
+
+
+    // change from DbContext to IdentityDbContext
+    public class IntroContext: IdentityDbContext
     {
 
         public DbSet<Course> Courses { get; set; }

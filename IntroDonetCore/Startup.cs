@@ -3,6 +3,7 @@ using IntroDonetCore.Services.IRepository;
 using IntroDonetCore.Services.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +41,18 @@ namespace IntroDonetCore
             services.AddTransient<IInstructorRepository, InstructorRepository>();
             services.AddTransient<ICourseAssignmentRepository, CourseAssignmentRepository>();
 
+
+            services.AddTransient<IAccountInitialize, AccountInitialize>();
+
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireUppercase = true;
+            })
+              .AddEntityFrameworkStores<IntroContext>()
+              .AddDefaultTokenProviders();
+
             services.AddMvc();
 
             services.AddPaging(options =>
@@ -48,11 +61,10 @@ namespace IntroDonetCore
                 options.PageParameterName = "pageindex";
             });
 
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAccountInitialize accountInitialize)
         {
             if (env.IsDevelopment())
             {
@@ -61,8 +73,14 @@ namespace IntroDonetCore
 
 
             app.UseDefaultFiles();
+
             app.UseStaticFiles();
+
+            app.UseAuthentication();
+
             app.UseRouting();
+
+            accountInitialize.SeedData();
 
             app.UseEndpoints(endpoints =>
             {
@@ -76,7 +94,6 @@ namespace IntroDonetCore
 
                 );
             });
-
 
             DbInitializer.Seed(app);
 

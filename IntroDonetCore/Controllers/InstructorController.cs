@@ -198,7 +198,6 @@ namespace IntroDonetCore.Controllers
             return source.Where(x => x.InstructorId == instructorId).Any(c => c.CourseId == courseId);
         }
 
-
         public async Task<IActionResult> Delete(int? id)
         {
             if (id != null)

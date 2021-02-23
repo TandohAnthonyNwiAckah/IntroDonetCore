@@ -112,7 +112,6 @@ namespace IntroDonetCore.DAL
         }
     }
 
-
     public class OfficeAssignmentConfig : IEntityTypeConfiguration<OfficeAssignment>
     {
         public void Configure(EntityTypeBuilder<OfficeAssignment> builder)
